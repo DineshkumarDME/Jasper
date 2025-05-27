@@ -55,6 +55,7 @@ public class JasperServiceImplTest {
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertNotNull(response.getBody());
         assertTrue(response.getBody().length > 0);
+        
         assertEquals("application/pdf", response.getHeaders().getContentType().toString());
     }
 
