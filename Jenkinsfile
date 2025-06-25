@@ -1,9 +1,7 @@
- 
 pipeline {
     agent any
 
     environment {
-        // Your Docker Hub details
         DOCKER_HUB_USER = 'dineshdme'
         REPO_NAME = 'testing'
         IMAGE_TAG = "build-${BUILD_NUMBER}"
@@ -13,7 +11,7 @@ pipeline {
     stages {
         stage('Clone Code') {
             steps {
-                git 'https://github.com/DineshkumarDME/Jasper.git'
+                git branch: 'main', url: 'https://github.com/DineshkumarDME/Jasper.git'
             }
         }
 
@@ -41,10 +39,7 @@ pipeline {
         stage('Run Docker Container (Local)') {
             steps {
                 script {
-                    // Stop and remove if already running
                     sh "docker rm -f springboot-app || true"
-
-                    // Run new container
                     sh "docker run -d --name springboot-app -p 8080:8080 ${DOCKER_IMAGE}"
                 }
             }
@@ -53,10 +48,10 @@ pipeline {
 
     post {
         success {
-            echo "Deployed container from image: ${DOCKER_IMAGE}"
+            echo "✅ Deployed container from image: ${DOCKER_IMAGE}"
         }
         failure {
-            echo " Build or deploy failed"
+            echo "❌ Build or deploy failed"
         }
     }
 }
