@@ -15,12 +15,18 @@ import org.springframework.web.bind.annotation.RestController;
 import com.jasper.project.dto.ReportRequest;
 import com.jasper.project.service.JasperService;
 
+import io.opentelemetry.api.trace.Span;
+import io.opentelemetry.api.trace.Tracer;
+
 @RestController
 @RequestMapping("/api")
 public class JasperController {
 
 	@Autowired
 	private JasperService jasperService;
+
+	@Autowired
+	private Tracer tracer;
 
 	@GetMapping("/get-jasper-with-param")
 	public byte[] createJasperWithParam(@RequestParam String userId) {
@@ -40,5 +46,18 @@ public class JasperController {
 	@PostMapping("/get-jasper-with-param")
 	public ResponseEntity<byte[]> createJasperWithParam(@RequestBody ReportRequest reportRequest) {
 		return jasperService.generateJasper(reportRequest);
+	}
+
+	@GetMapping("/error500")
+	public String triggerError() {
+		throw new RuntimeException("Intentional 500 error for testing");
+	}
+
+	@GetMapping("/trace")
+	public String sendTrace() {
+		Span span = tracer.spanBuilder("manual-test-span").startSpan();
+		span.addEvent("doing manual trace work");
+		span.end();
+		return "Manual trace sent!";
 	}
 }
