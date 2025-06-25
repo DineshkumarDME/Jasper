@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+tools {
+        maven 'MyMaven' 
+    }
+
     environment {
         DOCKER_HUB_USER = 'dineshdme'
         REPO_NAME = 'testing'
