@@ -11,13 +11,13 @@ pipeline {
     stages {
         stage('Clone Code') {
             steps {
-                git branch: 'main', url: 'https://github.com/DineshkumarDME/Jasper.git'
+                git branch: 'dev', url: 'https://github.com/DineshkumarDME/Jasper.git'
             }
         }
 
         stage('Build Spring Boot App') {
             steps {
-                sh 'mvn clean package -DskipTests'
+                sh 'maven clean package -DskipTests'
             }
         }
 
