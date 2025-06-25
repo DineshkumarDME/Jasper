@@ -142,9 +142,9 @@ public class JasperServiceImpl implements JasperService {
 			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, connection);
 			JasperExportManager.exportReportToPdfStream(jasperPrint, outputStream);
 			return outputStream.toByteArray();
-
 		} catch (Exception e) {
 			throw new RuntimeException("Failed to generate Jasper report: " + reportRequest.getReportName(), e);
 		}
 	}
+
 }

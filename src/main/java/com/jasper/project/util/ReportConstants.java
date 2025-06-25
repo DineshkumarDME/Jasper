@@ -17,7 +17,7 @@ public class ReportConstants {
 
 	public static final MediaType MEDIA_TYPE_PDF = MediaType.APPLICATION_PDF;
 	public static final MediaType MEDIA_TYPE_XLS = MediaType.parseMediaType("application/vnd.ms-excel");
-	public static final MediaType MEDIA_TYPE_CSV = MediaType.TEXT_PLAIN;
+	public static final MediaType MEDIA_TYPE_CSV = MediaType.parseMediaType("text/csv");
 	public static final MediaType MEDIA_TYPE_DEFAULT = MediaType.APPLICATION_OCTET_STREAM;
 
 }
